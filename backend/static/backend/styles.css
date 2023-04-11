@@ -1,0 +1,130 @@
+/*
+ * Base structure
+ */
+
+
+.user-dropdown {
+    outline: none;
+    background-color: white;
+    font-size: 12px !important;
+    border: 0px;
+}
+
+div[class="user-dropdown"] ul {
+    max-width: 3vw !important;
+    background-color: red !important;
+}
+
+.nav-account {
+    padding-top: 2.5px !important;
+}
+
+.overviewBackground-container {
+    background-color: rgb(243, 243, 243);
+}
+
+.ticker-header,
+.ticker-container {
+    background-color: white;
+    font-size: 15px;
+    padding: 0.3rem;
+    margin: 0.1rem 0 0.1rem 0;
+}
+
+.page-link {
+    cursor: pointer;
+    user-select: none;
+}
+
+li {
+    /*For pagination*/
+    padding: 0;
+}
+
+
+.no-underline {
+    text-decoration: none;
+    color: black;
+}
+
+.color-grey {
+    background-color: rgb(199, 162, 233);
+
+}
+
+.b-1 {
+    border: 1px solid black;
+}
+
+/*
+ * Header
+ */
+
+.nav-masthead .nav-link {
+    color: rgb(0, 0, 0);
+    border-bottom: .25rem solid transparent;
+}
+
+.nav-masthead .nav-link:hover,
+.nav-masthead .nav-link:focus {
+    color: rgba(0, 0, 0, 0.75);
+    border-bottom-color: rgb(0, 0, 0, 0.75);
+}
+
+.nav-masthead .nav-link+.nav-link {
+    margin-left: 1rem;
+}
+
+.nav-masthead .active {
+    color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+}
+
+.portfolio_total_pnl {
+    color: rgb(54, 116, 217);
+    border: 1px solid rgb(54, 116, 217);
+    border-radius: 7.5px;
+    box-shadow: 0 0 6px 0.5px rgba(54, 117, 217, 0.506);
+}
+
+/* Styles for attribution message */
+.lw-attribution {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    z-index: 3;
+    /* place above the charts */
+    padding: 10px 0px 0px 12px;
+    font-family: "Roboto", sans-serif;
+    font-size: 0.8em;
+}
+
+.lw-attribution a {
+    cursor: pointer;
+    color: rgb(54, 116, 217);
+    opacity: 0.8;
+}
+
+.lw-attribution a:hover {
+    color: rgb(54, 116, 217);
+    opacity: 1;
+}
+
+/* PortfolioChart Icon Toggle */
+button[aria-expanded=true] .bi-eye-slash {
+    display: none;
+}
+
+button[aria-expanded=false] .bi-eye {
+    display: none;
+}
+
+.custom-tooltip {
+    --bs-tooltip-bg: var(--bs-primary);
+}
+
+
+/* UserProfile */
+.profileImage {
+    max-height: 20vh;
+}

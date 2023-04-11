@@ -1,0 +1,76 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.trigger {
+  padding: 0 24px;
+  font-size: 18px;
+  line-height: 64px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.trigger:hover {
+  color: #1890ff;
+}
+
+.logo {
+  height: 32px;
+  margin: 16px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Disable login dropdown menu hover effect */
+.logout-item-list {
+  height: 50px;
+}
+
+.dropdown-logout-item {
+  font-size: 15px;
+  height: 50px;
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+  padding-bottom: 15px !important;
+  margin-bottom: 15px !important;
+}
+
+.dropdown-logout-item:hover {
+  background-color: rgb(242, 242, 242) !important;
+  cursor: pointer;
+}
+
+.black {
+  background-color: black;
+}
+
+/* Change the login menu hover effect dynamically */
+.dropdown-login-menu>li>span:hover {
+  background-color: white;
+}
+
+.dropdown-login-menu[class~="black"]>li>span:hover {
+  background-color: black;
+}
+
+/* Control chart container responsivivity */
+@media (max-width: 3600px) {
+  .chart-container {
+    height: 500px;
+  }
+}
+
+@media (max-width: 600px) {
+  .chart-container {
+    height: 350px;
+  }
+}
