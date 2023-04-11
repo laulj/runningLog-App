@@ -3,6 +3,7 @@
 # django
 db.sqlite3
 __pycache__/
+migrations/
 
 # dependencies
 node_modules/
