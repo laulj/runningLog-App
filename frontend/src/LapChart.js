@@ -74,7 +74,11 @@ function LapChart({ logs, laps, }) {
         this.borderColor = `rgb(${rgb[0]},${rgb[1]},${rgb[2]},0.5)`;
         this.backgroundColor = `rgb(${rgb[0]},${rgb[1]},${rgb[2]},0.35)`;
     }
-    const labels = laps.map((lap) => { return lap.order });
+
+    // Since orders (x-axis) are not unique numbers, use set to filter them
+    let labels = new Set(laps.map((lap) => { return lap.order }));
+    // Get labels back in array
+    labels = [...labels];
 
     const buildDatasets = async () => {
         let Datasets = [];
