@@ -9,9 +9,13 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-import datetime
+import os, datetime, json
 from pathlib import Path
 from django.contrib.messages import constants as messages
+from django.core.management.utils import get_random_secret_key  
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -21,13 +25,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-p7(*w5^rgb84clmu(e=(-ms=5i5ljxdx3v(%qw*%^spa29ux+9'
+SECRET_KEY = get_random_secret_key()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ["DEBUG"] == "True"
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = os.environ["ALLOWED_HOSTS"].split(',')
 
 # Application definition
 
@@ -138,16 +141,25 @@ MESSAGE_TAGS = {
 
 # Restframework
 CORS_URLS_REGEX = r"^/api/.*$"
-#CORS_ORIGIN_ALLOW_ALL = False
-#CORS_ALLOW_CREDENTIALS = True
-CORS_ORIGIN_WHITELIST = []
-if DEBUG:
-    CORS_ORIGIN_WHITELIST += (
-    'http://localhost:3000', # Here was the problem indeed and it has to be http://localhost:3000, not http://localhost:3000/
-    'https://localhost:3000',
-    'http://localhost:8000',
-    'https://localhost:8000',
-)
+CORS_ORIGIN_ALLOW_ALL = True
+# CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_WHITELIST = os.environ["CORS_ORIGIN_WHITELIST"].split(',')
+CSRF_TRUSTED_ORIGINS = os.environ["CSRF_TRUSTED_ORIGINS"].split(',')
+SECURE_SSL_REDIRECT = os.environ["SECURE_SSL_REDIRECT"] == "True"
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_HSTS_SECONDS = 2592000 
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+# if DEBUG:
+#     CORS_ORIGIN_WHITELIST += (
+#     'http://localhost:3000', # Here was the problem indeed and it has to be http://localhost:3000, not http://localhost:3000/
+#     'https://localhost:3000',
+#     'http://localhost:8000',
+#     'https://localhost:8000',
+# )
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [

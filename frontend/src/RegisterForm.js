@@ -1,38 +1,50 @@
-import React from 'react';
-import { Form, Input, Modal, Typography, Result } from 'antd';
+import React from "react";
+import { Form, Input, Modal, Typography, Result } from "antd";
+import { BASE_URL } from "./Layout";
 
-const UserCreateForm = ({ logIn, open, setOpen, signUp, username, setUsername, password, setPassword, confirmPassword, setConfirmPassword }) => {
+const UserCreateForm = ({
+  logIn,
+  open,
+  setOpen,
+  signUp,
+  username,
+  setUsername,
+  password,
+  setPassword,
+  confirmPassword,
+  setConfirmPassword,
+}) => {
   const [form] = Form.useForm();
   const [confirmLoading, setConfirmLoading] = React.useState(false);
   const [formStates, setFormStates] = React.useState([]);
   React.useEffect(() => {
     // Validate the passwords
     if (!("password" in formStates) && !("confirmPassword" in formStates)) {
-      setPassword(prevPassword => ({
-        validateStatus: '',
+      setPassword((prevPassword) => ({
+        validateStatus: "",
         errorMsg: null,
       }));
-      setConfirmPassword(prevConfirmPassword => ({
-        validateStatus: '',
+      setConfirmPassword((prevConfirmPassword) => ({
+        validateStatus: "",
         errorMsg: null,
       }));
     } else if (formStates.password === formStates.confirmPassword) {
-      setPassword(prevPassword => ({
-        validateStatus: 'success',
+      setPassword((prevPassword) => ({
+        validateStatus: "success",
         errorMsg: null,
       }));
-      setConfirmPassword(prevConfirmPassword => ({
-        validateStatus: 'success',
+      setConfirmPassword((prevConfirmPassword) => ({
+        validateStatus: "success",
         errorMsg: null,
       }));
     } else {
-      setPassword(prevPassword => ({
-        validateStatus: 'error',
-        errorMsg: 'password not match!',
+      setPassword((prevPassword) => ({
+        validateStatus: "error",
+        errorMsg: "password not match!",
       }));
-      setConfirmPassword(prevConfirmPassword => ({
-        validateStatus: 'error',
-        errorMsg: 'password not match!',
+      setConfirmPassword((prevConfirmPassword) => ({
+        validateStatus: "error",
+        errorMsg: "password not match!",
       }));
     }
   }, [formStates]);
@@ -51,15 +63,15 @@ const UserCreateForm = ({ logIn, open, setOpen, signUp, username, setUsername, p
     // Reset modal fields
     form.resetFields();
     setUsername({
-      validateStatus: '',
+      validateStatus: "",
       errorMsg: null,
     });
     setPassword({
-      validateStatus: '',
+      validateStatus: "",
       errorMsg: null,
     });
     setConfirmPassword({
-      validateStatus: '',
+      validateStatus: "",
       errorMsg: null,
     });
     // Close the modal
@@ -79,7 +91,12 @@ const UserCreateForm = ({ logIn, open, setOpen, signUp, username, setUsername, p
         form
           .validateFields()
           .then(async (values) => {
-            if ((password.validateStatus === 'success' && confirmPassword.validateStatus === 'success') || (password.validateStatus === 'warning' && confirmPassword.validateStatus === 'warning')) {
+            if (
+              (password.validateStatus === "success" &&
+                confirmPassword.validateStatus === "success") ||
+              (password.validateStatus === "warning" &&
+                confirmPassword.validateStatus === "warning")
+            ) {
               // Trigger the loading animation
               setConfirmLoading(true);
 
@@ -90,52 +107,51 @@ const UserCreateForm = ({ logIn, open, setOpen, signUp, username, setUsername, p
               // Submit button loading animation period
               setTimeout(function () {
                 // Initiate 'submit' button loading
-                setConfirmLoading(state => false);
+                setConfirmLoading((state) => false);
 
                 // If there are errors
                 if (response.status === 400) {
                   if ("password" in data) {
                     if ("username" in data) {
                       setUsername({
-                        validateStatus: 'error',
+                        validateStatus: "error",
                         errorMsg: data.username,
                       });
                     } else {
                       setUsername({
-                        validateStatus: 'success',
+                        validateStatus: "success",
                         errorMsg: null,
                       });
                     }
                     setPassword({
-                      validateStatus: 'error',
+                      validateStatus: "error",
                       errorMsg: data.password,
                     });
                     setConfirmPassword({
-                      validateStatus: 'error',
+                      validateStatus: "error",
                       errorMsg: null,
                     });
                   } else if ("username" in data) {
                     setUsername({
-                      validateStatus: 'error',
+                      validateStatus: "error",
                       errorMsg: data.username,
                     });
                     setPassword({
-                      validateStatus: 'success',
+                      validateStatus: "success",
                       errorMsg: null,
                     });
                     setConfirmPassword({
-                      validateStatus: 'success',
+                      validateStatus: "success",
                       errorMsg: null,
                     });
                   }
-
                 } else if (response.status === 500) {
                   setPassword({
-                    validateStatus: 'warning',
-                    errorMsg: 'Server error',
+                    validateStatus: "warning",
+                    errorMsg: "Server error",
                   });
                   setConfirmPassword({
-                    validateStatus: 'warning',
+                    validateStatus: "warning",
                     errorMsg: null,
                   });
                 } else if (response.status === 201) {
@@ -143,15 +159,15 @@ const UserCreateForm = ({ logIn, open, setOpen, signUp, username, setUsername, p
                   // Clear the form fields
                   form.resetFields();
                   setConfirmPassword({
-                    validateStatus: 'success',
+                    validateStatus: "success",
                     errorMsg: null,
                   });
                   setPassword({
-                    validateStatus: 'success',
+                    validateStatus: "success",
                     errorMsg: null,
                   });
                   setConfirmPassword({
-                    validateStatus: 'success',
+                    validateStatus: "success",
                     errorMsg: null,
                   });
                   setOpen(false);
@@ -160,23 +176,23 @@ const UserCreateForm = ({ logIn, open, setOpen, signUp, username, setUsername, p
                   const userCredentials = {
                     username: values.username,
                     password: values.password,
-                  }
+                  };
                   logIn(userCredentials);
                 } else {
                   // Something is wrong
                   setPassword({
-                    validateStatus: 'warning',
-                    errorMsg: 'Something is wrong',
+                    validateStatus: "warning",
+                    errorMsg: "Something is wrong",
                   });
                   setConfirmPassword({
-                    validateStatus: 'warning',
-                    errorMsg: 'Something is wrong',
+                    validateStatus: "warning",
+                    errorMsg: "Something is wrong",
                   });
                 }
               }, 2000);
             }
           })
-          .catch((info) => { });
+          .catch((info) => {});
       }}
     >
       <Form
@@ -190,7 +206,7 @@ const UserCreateForm = ({ logIn, open, setOpen, signUp, username, setUsername, p
           label="Username"
           validateStatus={username.validateStatus}
           help={username.errorMsg}
-          rules={[{ required: true, message: 'Username is required!' }]}
+          rules={[{ required: true, message: "Username is required!" }]}
         >
           <Input />
         </Form.Item>
@@ -200,7 +216,8 @@ const UserCreateForm = ({ logIn, open, setOpen, signUp, username, setUsername, p
           hasFeedback
           validateStatus={password.validateStatus}
           help={password.errorMsg}
-          rules={[{ required: true, message: 'Password is required!' }]}>
+          rules={[{ required: true, message: "Password is required!" }]}
+        >
           <Input.Password />
         </Form.Item>
         <Form.Item
@@ -209,7 +226,13 @@ const UserCreateForm = ({ logIn, open, setOpen, signUp, username, setUsername, p
           hasFeedback
           validateStatus={confirmPassword.validateStatus}
           help={confirmPassword.errorMsg}
-          rules={[{ required: true, message: 'Please input the same password again!' }]}>
+          rules={[
+            {
+              required: true,
+              message: "Please input the same password again!",
+            },
+          ]}
+        >
           <Input.Password />
         </Form.Item>
       </Form>
@@ -217,19 +240,18 @@ const UserCreateForm = ({ logIn, open, setOpen, signUp, username, setUsername, p
   );
 };
 
-
 function RegisterForm({ logIn }) {
   const [open, setOpen] = React.useState(false);
   const [username, setUsername] = React.useState({
-    validateStatus: '',
+    validateStatus: "",
     errorMsg: null,
-  })
+  });
   const [password, setPassword] = React.useState({
-    validateStatus: '',
+    validateStatus: "",
     errorMsg: null,
   });
   const [confirmPassword, setConfirmPassword] = React.useState({
-    validateStatus: '',
+    validateStatus: "",
     errorMsg: null,
   });
 
@@ -238,7 +260,7 @@ function RegisterForm({ logIn }) {
 
     if (!ignore) {
       // Wait for response
-      const response = await fetch('http://127.0.0.1:8000/api/register/', {
+      const response = await fetch(BASE_URL + "api/register/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -261,13 +283,20 @@ function RegisterForm({ logIn }) {
         title="Please Login first!"
         extra={[
           <Typography.Text key="registerInfoText">New user?</Typography.Text>,
-          <a key="registerInfoAnchor" href="" onClick={(e) => {
-            // Prevent website from refreshing
-            e.preventDefault();
-            // Open modal
-            setOpen(true);
-          }}>Register here</a>,
-        ]} />
+          <a
+            key="registerInfoAnchor"
+            href=""
+            onClick={(e) => {
+              // Prevent website from refreshing
+              e.preventDefault();
+              // Open modal
+              setOpen(true);
+            }}
+          >
+            Register here
+          </a>,
+        ]}
+      />
 
       <UserCreateForm
         logIn={logIn}
@@ -283,6 +312,6 @@ function RegisterForm({ logIn }) {
       />
     </div>
   );
-};
+}
 
 export default RegisterForm;
