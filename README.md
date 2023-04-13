@@ -1,5 +1,5 @@
 # CS50 Final Project -  Running Log App
-#### Video Demo:
+#### Video Demo: [Youtube Demo](https://youtu.be/xIM_obtcz1I "Youtube Demo")
 #### Description:
 Running Log is a final project submission with respect to **CS50’s Introduction to Computer Science**.
 
