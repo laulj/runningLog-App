@@ -25,3 +25,4 @@ sqlparse==0.4.3
 urllib3==1.26.14
 python-dotenv==0.21.0
 gevent==24.2.1
+setuptools<82.0.0

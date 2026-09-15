@@ -1,0 +1,256 @@
+/*
+ * Landing page
+ *
+ * Every colour is driven by a custom property so the page follows the active
+ * antd theme. The fallbacks below are used when the page renders on its own,
+ * e.g. in tests, where no ConfigProvider tokens are available.
+ */
+
+.landing {
+    --landing-surface: #f5f5f5;
+    --landing-surface-strong: #eaeaea;
+    --landing-border: #e0e0e0;
+    --landing-text: rgba(0, 0, 0, 0.88);
+    --landing-text-secondary: rgba(0, 0, 0, 0.65);
+    --landing-accent: #1677ff;
+    color: var(--landing-text);
+}
+
+/* Visible focus for every interactive element on the page */
+.landing a:focus-visible,
+.landing button:focus-visible {
+    outline: 2px solid var(--landing-accent);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+.landing a,
+.landing button {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Skip link stays out of the layout until it is focused */
+.landing-skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    z-index: 10;
+    padding: 8px 16px;
+    border-radius: 0 0 6px 0;
+    background-color: var(--landing-accent);
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.landing-skip-link:focus-visible {
+    left: 0;
+}
+
+.landing-main {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* ---------- Hero ---------- */
+
+.landing-hero {
+    padding: 32px 24px 40px;
+    border: 1px solid var(--landing-border);
+    border-radius: 12px;
+    background-color: var(--landing-surface);
+    text-align: center;
+}
+
+.landing-hero__eyebrow {
+    margin-bottom: 12px;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.landing-hero__title {
+    margin: 0 0 12px !important;
+    font-size: clamp(2.25rem, 6vw, 3.5rem) !important;
+    line-height: 1.15 !important;
+    /* Keeps a single trailing word off its own line */
+    text-wrap: balance;
+}
+
+.landing-hero__subtitle {
+    max-width: 620px;
+    margin: 0 auto 24px !important;
+    font-size: 1.0625rem;
+    color: var(--landing-text-secondary);
+    text-wrap: pretty;
+}
+
+.landing-hero__actions {
+    margin-bottom: 24px;
+}
+
+.landing-hero__tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.landing-hero__tags > li {
+    margin: 0;
+}
+
+/* ---------- Shared section chrome ---------- */
+
+.landing-section {
+    margin-top: 48px;
+    /* Clears the sticky header when a section is linked directly */
+    scroll-margin-top: 24px;
+}
+
+.landing-section__heading {
+    margin: 0 0 8px !important;
+    text-wrap: balance;
+}
+
+.landing-section__lead {
+    max-width: 640px;
+    margin: 0 0 24px !important;
+    color: var(--landing-text-secondary);
+}
+
+.landing-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+/* ---------- Feature grid ---------- */
+
+.landing-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 16px;
+}
+
+.landing-feature {
+    padding: 20px;
+    border: 1px solid var(--landing-border);
+    border-radius: 12px;
+    background-color: var(--landing-surface);
+}
+
+.landing-feature__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    margin-bottom: 12px;
+    border-radius: 10px;
+    background-color: var(--landing-surface-strong);
+    color: var(--landing-accent);
+    font-size: 20px;
+}
+
+/* Shared by the feature cards and the step cards */
+.landing-card__title {
+    margin: 0 0 8px !important;
+    font-size: 1rem !important;
+}
+
+.landing-card__body {
+    margin: 0 !important;
+    color: var(--landing-text-secondary);
+    font-size: 0.9375rem;
+}
+
+/* ---------- Steps ---------- */
+
+.landing-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.landing-step {
+    padding: 20px;
+    border-left: 3px solid var(--landing-accent);
+    border-radius: 0 12px 12px 0;
+    background-color: var(--landing-surface);
+}
+
+.landing-step__index {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    margin-bottom: 12px;
+    border-radius: 50%;
+    background-color: var(--landing-accent);
+    color: #ffffff;
+    font-size: 0.875rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Motion ---------- */
+
+/* Declared only when the visitor has not asked for reduced motion */
+@media (prefers-reduced-motion: no-preference) {
+    .landing-hero__title,
+    .landing-hero__subtitle,
+    .landing-hero__actions {
+        animation: landing-rise 420ms ease-out both;
+    }
+
+    .landing-hero__subtitle {
+        animation-delay: 60ms;
+    }
+
+    .landing-hero__actions {
+        animation-delay: 120ms;
+    }
+}
+
+/* Compositor-friendly properties only: transform and opacity */
+@keyframes landing-rise {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .landing *,
+    .landing *::before,
+    .landing *::after {
+        animation: none !important;
+    }
+}
+
+/* ---------- Small screens ---------- */
+
+@media (max-width: 600px) {
+    .landing-hero {
+        padding: 24px 16px 32px;
+    }
+
+    .landing-section {
+        margin-top: 36px;
+    }
+}

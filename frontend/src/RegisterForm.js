@@ -240,8 +240,11 @@ const UserCreateForm = ({
   );
 };
 
-function RegisterForm({ logIn }) {
-  const [open, setOpen] = React.useState(false);
+function RegisterForm({ logIn, open, setOpen, showTrigger = true }) {
+  const [internalOpen, setInternalOpen] = React.useState(false);
+  // Stay backward compatible: fall back to internal state when the parent does not control the modal
+  const modalOpen = open === undefined ? internalOpen : open;
+  const setModalOpen = setOpen === undefined ? setInternalOpen : setOpen;
   const [username, setUsername] = React.useState({
     validateStatus: "",
     errorMsg: null,
@@ -278,30 +281,32 @@ function RegisterForm({ logIn }) {
 
   return (
     <div>
-      <Result
-        status="info"
-        title="Please Login first!"
-        extra={[
-          <Typography.Text key="registerInfoText">New user?</Typography.Text>,
-          <a
-            key="registerInfoAnchor"
-            href=""
-            onClick={(e) => {
-              // Prevent website from refreshing
-              e.preventDefault();
-              // Open modal
-              setOpen(true);
-            }}
-          >
-            Register here
-          </a>,
-        ]}
-      />
+      {showTrigger ? (
+        <Result
+          status="info"
+          title="Please Login first!"
+          extra={[
+            <Typography.Text key="registerInfoText">New user?</Typography.Text>,
+            <a
+              key="registerInfoAnchor"
+              href=""
+              onClick={(e) => {
+                // Prevent website from refreshing
+                e.preventDefault();
+                // Open modal
+                setModalOpen(true);
+              }}
+            >
+              Register here
+            </a>,
+          ]}
+        />
+      ) : null}
 
       <UserCreateForm
         logIn={logIn}
-        open={open}
-        setOpen={setOpen}
+        open={modalOpen}
+        setOpen={setModalOpen}
         signUp={signUp}
         username={username}
         setUsername={setUsername}

@@ -28,9 +28,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 SECRET_KEY = get_random_secret_key()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ["DEBUG"] == "True"
+DEBUG = os.environ.get("DEBUG",False) == "True"
 
-ALLOWED_HOSTS = os.environ["ALLOWED_HOSTS"].split(',')
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS","127.0.0.1").split(',')
 
 # Application definition
 
@@ -143,9 +143,9 @@ MESSAGE_TAGS = {
 CORS_URLS_REGEX = r"^/api/.*$"
 CORS_ORIGIN_ALLOW_ALL = True
 # CORS_ALLOW_CREDENTIALS = True
-CORS_ORIGIN_WHITELIST = os.environ["CORS_ORIGIN_WHITELIST"].split(',')
-CSRF_TRUSTED_ORIGINS = os.environ["CSRF_TRUSTED_ORIGINS"].split(',')
-SECURE_SSL_REDIRECT = os.environ["SECURE_SSL_REDIRECT"] == "True"
+CORS_ORIGIN_WHITELIST = os.environ.get("CORS_ORIGIN_WHITELIST","http://127.0.0.1:8000").split(',')
+CSRF_TRUSTED_ORIGINS = os.environ.get("CSRF_TRUSTED_ORIGINS","http://127.0.0.1").split(',')
+SECURE_SSL_REDIRECT = os.environ.get("SECURE_SSL_REDIRECT", False) == "True"
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SECURE_HSTS_SECONDS = 2592000 
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True

@@ -8,6 +8,8 @@ Running Log is a final project submission with respect to **CS50’s Introductio
 
 ### Specifications
 
+- **Landing**: Visitors who are not authenticated should see a landing page that introduces the application, summarises the features of the **Home**, **Chart**, and **Add** views, and offers the **Create Free Account** and **Sign In** actions.
+
 - **Register & Login**: Users must be able to register new account and login with those that are already created.
 - **Home**: For authenticated users, the **Home** button in the left navigation panel should display two components from a specific running strategy:
 
@@ -72,7 +74,7 @@ A description of what is contained in each file.
 
 1. Layout.js
 
-The highest-level react component. The main highlight would be the three menu items, **Home**, **Chart**, and **Add** in the layout:
+The highest-level react component. While the user is not authenticated, it renders `LandingPage` instead of the app views, and the three menu items, **Home**, **Chart**, and **Add**, are only displayed once the user is logged in:
 
 - **Home**: composed of `OverallStats` and `MyCalendar`,
 - **Chart**: composed of `LogChart` and `LapChart`,
@@ -80,16 +82,20 @@ The highest-level react component. The main highlight would be the three menu it
 
 Nonetheless, `LoginForm` and `RegisterForm` to log and register user in respectively are also included.
 
-2. LoginForm.js
+2. LandingPage.js
+
+`LandingPage` is displayed to visitors who are not logged in. It introduces the application with a hero section and the **Create Free Account** and **Sign In** actions, then summarises the features of the **Home**, **Chart**, and **Add** views along with the light and dark themes. The **Create Free Account** action opens the registration modal of `RegisterForm`, while **Sign In** opens the login dropdown in the header.
+
+3. LoginForm.js
 
 `LoginForm` is responsible for logging user in by acquiring the _access_ and _refresh_ token defined in `jwt.py`. Furthermore, if user chooses the _Remember me_ option, the choice will be stored in a React Hook, and refer to it again. In other words, if `loginStatus.remember` is not `false`, the username field in the login form will be pre-populated with the previous username.
 Besides, if the user is authenticated, the returned _tokens_ will be stored in the _localStorage_.
 
-3. RegisterForm.js
+4. RegisterForm.js
 
 `RegisterForm` is a Modal component with frontend form validations written for user registration.
 
-4. OverallStats.js
+5. OverallStats.js
 
 `OverallStats` is a React component to display the totalled statistics of a running strategy of
 
@@ -99,19 +105,19 @@ Besides, if the user is authenticated, the returned _tokens_ will be stored in t
 
 while the statistics are animated using `react-countup`. Furthermore, the aforementioned statistics will change as the selected running strategy changed.
 
-5. Calendar.js
+6. Calendar.js
 
 The purpose of `Calendar` is to provide an overview, and to summarize which day had the user exercised and the statistics on that day respectively.
 
-6. LogChart.js
+7. LogChart.js
 
 `LogChart` is a histogram implemented using `chart` and `react-chartjs-2` charted with the distance ran againsts the date to provide the user an overall view of the performance on each day. Furthermore, the histogram bar color is randomized using `faker`.
 
-7. LapChart.js
+8. LapChart.js
 
 Implemented using the same npm packages, but with a linear graph plotted with the time to complete each lap againsts the lap for each log.
 
-8. StrategyCreate.js, LogCreate.js, LapCreate.js
+9. StrategyCreate.js, LogCreate.js, LapCreate.js
 
 `StrategyCreate`, `LogCreate`, and `LapCreate` are forms for adding and removing running strategies or plans, logs, and laps respectively.
 
